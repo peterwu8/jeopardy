@@ -17,7 +17,7 @@ import datetime
 import sys
 
 # Local modules
-from . import jp_html
+import jp_html
 int_regex = re.compile(r"^\d+\.\s+", re.IGNORECASE)
 def fix_box_string(txt):
 	txt = int_regex.sub('', txt.strip())
@@ -59,9 +59,9 @@ class JpTopicBox:
 
 	################################################################################
 	def dump(self):
-		print('  question = %s' % self._question)
-		print('    answer = %s' % self._answer)
-		print('    points = %d' % self._points)
+		print '  question = %s' % self._question
+		print '    answer = %s' % self._answer
+		print '    points = %d' % self._points
 
 class JpTopic:
 	'''
@@ -129,7 +129,7 @@ class JpTopic:
 
 	################################################################################
 	def dump(self):
-		print('topic = %s' % self._topic)
+		print 'topic = %s' % self._topic
 		for box in self._boxes:
 			box.dump()
 
@@ -173,7 +173,7 @@ class JpCmd:
 				pass
 			elif question_start_regex.match(line):
 				if expect_answer:
-					print('Internal Error: No answer found for this question: %s (line %d, file %s)' % (last_question, lineno, fullpath))
+					print 'Internal Error: No answer found for this question: %s (line %d, file %s)' % (last_question, lineno, fullpath)
 				in_q = True
 				last_question = ''
 			elif in_q:
@@ -198,17 +198,17 @@ class JpCmd:
 					toggle_is_question = False
 					last_question = line
 				elif is_question_regex.match(line):
-					print('Internal Error: Answer expected but found a question: %s (line %d, file %s)' % (line, lineno, fullpath))
+					print 'Internal Error: Answer expected but found a question: %s (line %d, file %s)' % (line, lineno, fullpath)
 				else:
 					toggle_is_question = True
 			else:
 				pass
 
 		if not toggle_is_question:
-			print('Internal Error: File ended without an answer for the question: %s (line %d, file %s)' % (last_question, lineno, fullpath))
+			print 'Internal Error: File ended without an answer for the question: %s (line %d, file %s)' % (last_question, lineno, fullpath)
 
 		elif unused_count+used_count < 5:
-			print('Internal Error: The file contains less than 5 questions: %s' % (fullpath))
+			print 'Internal Error: The file contains less than 5 questions: %s' % (fullpath)
 
 		return (unused_count, used_count)
 
@@ -221,7 +221,7 @@ class JpCmd:
 
 			for dir in dirs:
 
-				print('%s%s' % (indent, dir.title()))
+				print '%s%s' % (indent, dir.title())
 				index = self._show_options(os.path.join(root, dir), index, indent+"  ")
 
 			for file in files:
@@ -233,7 +233,7 @@ class JpCmd:
 					with open(fullpath, 'r') as f:
 						first_line = f.readline().strip()
 						(unused_count, used_count) = self._count_topic(f, fullpath)
-						print('%s%d. %-30s (%d new, %d old)' % (indent, index, first_line.title(), unused_count, used_count))
+						print '%s%d. %-30s (%d new, %d old)' % (indent, index, first_line.title(), unused_count, used_count)
 					self._db_files.append(fullpath)
 
 		return index
@@ -264,7 +264,7 @@ class JpCmd:
 			with open(file, 'r') as f:
 				for line in f.readlines():
 					self._used_question[line.strip()] = True
-				print('Read: %s (%d keys)' % (file, len(self._used_question)))
+				print 'Read: %s (%d keys)' % (file, len(self._used_question))
 
 	################################################################################
 	def _write_cache(self):
@@ -273,9 +273,9 @@ class JpCmd:
 		'''
 		file = self._get_cache_fname()
 		with open(file, 'a') as f:
-			for key in list(self._used_question.keys()):
-				print(key, file=f)
-			print('Wrote: %s' % file)
+			for key in self._used_question.keys():
+				print >> f, key
+			print 'Wrote: %s' % file
 
 	################################################################################
 	def _create_topic(self, file):
@@ -327,10 +327,10 @@ class JpCmd:
 		'''
 		db_file_indices = list()
 
-		print('')
-		print('Choose five topics from the following:\n')
+		print ''
+		print 'Choose five topics from the following:\n'
 		self._show_options('.')
-		print('')
+		print ''
 		# set up available ID's to choose from
 		user_selections = dict()
 		total_keys = len(self._db_files)
@@ -340,13 +340,13 @@ class JpCmd:
 		# Ask user input
 		max_columns = 5
 		for i in range(max_columns):
-			id = input('Pick a number (from 1 to %d) for topic #%d: ' % (total_keys, i+1))
-			while id not in user_selections:
-				id = input('--   Try again! Pick a number (from 1 to %d) for column %d: ' % (total_keys, i+1))
+			id = raw_input('Pick a number (from 1 to %d) for topic #%d: ' % (total_keys, i+1))
+			while not user_selections.has_key(id):
+				id = raw_input('--   Try again! Pick a number (from 1 to %d) for column %d: ' % (total_keys, i+1))
 
 			# choosing identical files is okay.
 			if user_selections[id]:
-				print("--   Warning: You chose %s already. That means you'll see a duplicate column!" % id)
+				print "--   Warning: You chose %s already. That means you'll see a duplicate column!" % id
 			else:
 				user_selections[id] = True
 
@@ -366,11 +366,11 @@ class JpCmd:
 
 		# choosing identical files is okay.
 		# that means you'd get to have more questions to choose from.
-		print("\nGenerating Jeopardy game for the following topics:")
+		print "\nGenerating Jeopardy game for the following topics:"
 		for file in chosen_files:
 			with open(file, 'r') as f:
 				first_line = f.readline()
-				print('> %s' % (first_line), end=' ')
+				print '> %s' % (first_line),
 
 		for file in chosen_files:
 			self._create_topic(file)
@@ -390,10 +390,10 @@ class JpCmd:
 		except OSError:
 			pass
 		with open(ofile, 'w') as f:
-			print(content, file=f)
-			print('Generated: %s' % ofile)
+			print >> f, content
+			print 'Generated: %s' % ofile
 
-		print(subprocess.Popen(ofile, shell=True, stdout=subprocess.PIPE).stdout.read())
+		print subprocess.Popen(ofile, shell=True, stdout=subprocess.PIPE).stdout.read()
 		return True
 
 	################################################################################
