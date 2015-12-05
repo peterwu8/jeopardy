@@ -1,0 +1,29 @@
+Math words
+1. What is a Googol?
+10 raised to the 100th power
+
+2. What is a Googolplex?
+10 raised to the Googol. A Googol is 10 raised to the 100th power.
+
+3. Hint: A triangle with all sides equal.
+equilateral
+
+4. Hint: A triangle with only two equal sides.
+isosceles
+
+5. What is the denominator of 3/5?
+5
+
+6. What is the numerator of 3/5?
+3
+
+points:500
+7. Definition: A number n for which the sum of all the positive integer factors of n which are less than n add up to n. Examples: 6 and 28.
+Perfect number
+
+points:100
+8. 2, 4, 6, 8 are examples of this type of number.
+even numbers
+
+9. 1, 3, 5, 7 are examples of this type of number.
+odd numbers

@@ -1,0 +1,61 @@
+﻿True or false
+
+<q>
+1. A false friend supports both your bad and good
+   behavior indiscriminately (aka: The Flatterer)
+</q>
+True
+
+<q>
+2. A true friend helps you in order to gain
+   something back. (aka: The Flatterer)
+</q>
+False
+
+<q>
+3. Pigs are clean & tidy.
+</q>
+True
+
+<q>
+4. Pigs cannot be trained to play video games
+</q>
+False
+
+<q>
+5. "Bland" is one of the six flavors.
+</q>
+True
+
+points:300
+
+<q>
+6. Not having greed inside
+   is the most precious of all treasures.
+</q>
+True
+
+<q>
+7. If you do good deeds in secret,
+you'll be intelligent
+in your future lives.
+</q>
+True
+
+<q>
+8. When you do something bad,
+   it causes you to
+   lose your freedom in the future.
+</q>
+True
+
+<q>
+9. Going from being an unfilial child
+   to being a filial child is to practice the Path.
+</q>
+True
+
+<q>
+10. One should live to eat and not eat to live.
+</q>
+False
